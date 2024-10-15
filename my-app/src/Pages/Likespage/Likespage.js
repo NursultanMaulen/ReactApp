@@ -3,7 +3,6 @@ import { useMemo } from "../../Utils/CustomUtils";
 import { Layout, Typography, Card } from "antd";
 import { Footer, Header, Sidebar } from "../../Components/IndexAllComponents";
 import { useLikeContext } from "../../Context/LikespageContext";
-import { background } from "@chakra-ui/react";
 
 const { Content } = Layout;
 const { Title } = Typography;

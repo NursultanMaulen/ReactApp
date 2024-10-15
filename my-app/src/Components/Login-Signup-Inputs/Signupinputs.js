@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Button, Form, Input, Typography, message } from "antd";
 import { useNavigate, Link } from "react-router-dom";
 import { useLoginSignupContext } from "../../Context/IndexAllContext";
-import { background } from "@chakra-ui/react";
 
 const { Title, Text } = Typography;
 
