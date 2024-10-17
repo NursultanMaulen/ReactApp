@@ -10,6 +10,8 @@ import {
 const { Content } = Layout;
 
 function Accountpage() {
+  console.log("RENDERED");
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Header />
@@ -24,8 +26,6 @@ function Accountpage() {
           </Content>
         </Layout>
       </Layout>
-
-      {/* Footer */}
       <Footer />
     </Layout>
   );

@@ -47,17 +47,14 @@ function Pagenotfound() {
         >
           <Title level={2} style={{ color: "#40a9ff", fontSize: "28px" }}>
             {" "}
-            {/* Smaller Title */}
             Page Not Found
           </Title>
           <Text style={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.65)" }}>
             {" "}
-            {/* Smaller Text */}
             Oops! The page you're looking for does not exist.
           </Text>
           <Text style={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.45)" }}>
             {" "}
-            {/* Smaller Text */}
             You will be redirected to the homepage in {counter} seconds.
           </Text>
           <Image

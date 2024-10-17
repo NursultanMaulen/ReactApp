@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { Table, Button, Typography, Card } from "antd";
 import { useNavigate } from "../../Utils/CustomUtils";
 import { useLoginSignupContext } from "../../Context/IndexAllContext";
@@ -15,34 +15,33 @@ function Accountdetails() {
   });
 
   useEffect(() => {
-    // Проверяем, есть ли данные пользователя в localStorage
+    console.log("useeffect rendered");
     const storedUserData = JSON.parse(localStorage.getItem("userData"));
 
     if (loginData && loginData.name && loginData.email) {
-      // Сохраняем данные из контекста в localStorage
       localStorage.setItem("userData", JSON.stringify(loginData));
       setUserData(loginData);
     } else if (storedUserData) {
-      // Если данные есть в localStorage, устанавливаем их в состояние
       setUserData(storedUserData);
     }
   }, [loginData]);
 
-  function logOutUserFromApp() {
+  const logOutUserFromApp = useCallback(() => {
     logoutHandler();
-    // Очищаем данные из localStorage при выходе
     localStorage.removeItem("userData");
     navigate("/login");
-  }
+  }, [navigate]);
 
-  // Данные для таблицы
-  const dataSource = [
-    {
-      key: "1",
-      name: userData.name,
-      email: userData.email,
-    },
-  ];
+  const dataSource = useMemo(() => {
+    console.log("useMemo called");
+    return [
+      {
+        key: "1",
+        name: userData.name,
+        email: userData.email,
+      },
+    ];
+  }, [userData]);
 
   const columns = [
     {
@@ -66,12 +65,38 @@ function Accountdetails() {
     },
   ];
 
+  function updateUserData() {
+    const newUserData = {
+      name: "Updated User",
+      email: "updateduser@example.com",
+    };
+    setUserData(newUserData);
+
+    localStorage.setItem("userData", JSON.stringify(newUserData));
+  }
+
+  function updateUserData2() {
+    const newUserData = {
+      name: "Updated User2",
+      email: "updateduser2@example.com",
+    };
+    setUserData(newUserData);
+    localStorage.setItem("userData", JSON.stringify(newUserData));
+  }
+
   return (
     <Card style={{ maxWidth: "1000px", margin: "auto", padding: "24px" }}>
       <Title level={1} style={{ textAlign: "center" }}>
         Account Details
       </Title>
       <Table dataSource={dataSource} columns={columns} pagination={false} />
+
+      <Button onClick={updateUserData} type="primary">
+        Update User Data
+      </Button>
+      <Button onClick={updateUserData2} type="primary">
+        Update User Data2
+      </Button>
     </Card>
   );
 }

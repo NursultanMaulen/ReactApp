@@ -1,4 +1,3 @@
-// src/Context/ExplorePageContext.js
 import {
   createContext,
   useContext,
@@ -6,7 +5,7 @@ import {
   useReducer,
   useState,
 } from "../Utils/CustomUtils.js";
-import { videos } from "../backend/videos.js"; // Import your mock data
+import { videos } from "../backend/videos.js"; 
 
 const explorePage = createContext();
 export const useExplorePageContext = () => useContext(explorePage);

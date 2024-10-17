@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Button, Input, Form, Typography, Layout, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginSignupContext } from "../../Context/IndexAllContext";
@@ -24,16 +24,19 @@ function LoginInputs() {
     }
   }, [dispatch]);
 
-  function submitLoginData(values) {
-    loginHandler(values.email, values.password, dispatch);
-    if (localStorage.getItem("token")) {
-      localStorage.setItem("email", values.email);
-      localStorage.setItem("password", values.password);
-      navigate("/explore");
-    } else {
-      setError("Invalid email or password");
-    }
-  }
+  const submitLoginData = useCallback(
+    (e) => {
+      loginHandler(email, password, dispatch);
+      if (localStorage.getItem("token")) {
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
+        navigate("/explore");
+      } else {
+        setError("Invalid email or password");
+      }
+    },
+    [email, password, dispatch, navigate]
+  );
 
   useEffect(() => {
     if (email.length > 0 && password.length > 0) {
@@ -45,7 +48,7 @@ function LoginInputs() {
     }
   }, [email, password]);
 
-  function setGuestLoginData() {
+  const setGuestLoginData = useCallback(() => {
     const guestEmail = "example@mail.com";
     const guestPassword = "123123123";
 
@@ -61,7 +64,7 @@ function LoginInputs() {
     localStorage.setItem("password", guestPassword);
 
     message.info("Guest Login Activated");
-  }
+  }, [form, dispatch]);
 
   return (
     <Layout

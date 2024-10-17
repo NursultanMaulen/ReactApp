@@ -18,11 +18,11 @@ function Videocard({ video, likeVideo }) {
     <Card
       hoverable
       style={{
-        width: 240, // Set a fixed width for the card
-        margin: "16px", // Add some margin around the card
-        backgroundColor: "#1a202c", // Background color
-        borderRadius: "8px", // Rounded corners
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", // Shadow effect
+        width: 240,
+        margin: "16px",
+        backgroundColor: "#1a202c",
+        borderRadius: "8px",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
       }}
     >
       <div style={{ position: "relative", paddingBottom: "56.25%", height: 0 }}>
@@ -43,7 +43,7 @@ function Videocard({ video, likeVideo }) {
       </div>
       <Row align="middle" style={{ marginTop: "8px" }}>
         <Col>
-          <Avatar src={creator_pic} size={40} /> {/* Creator picture */}
+          <Avatar src={creator_pic} size={40} /> 
         </Col>
         <Col style={{ marginLeft: "8px" }}>
           <Title level={5} style={{ color: "white", margin: 0 }}>
