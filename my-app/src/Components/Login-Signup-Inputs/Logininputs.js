@@ -3,6 +3,7 @@ import { Button, Input, Form, Typography, Layout, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginSignupContext } from "../../Context/IndexAllContext";
 import { loginHandler } from "../../services/LoginSignUpServices";
+import withLogging from "../../HOCs/withLogging";
 
 const { Title, Text } = Typography;
 const { Content } = Layout;
@@ -155,4 +156,4 @@ function LoginInputs() {
   );
 }
 
-export default LoginInputs;
+export default withLogging(LoginInputs);

@@ -18,7 +18,6 @@ function Hero() {
       }}
     >
       <Row justify="space-between" align="middle">
-        {/* Left Content: Text and Call to Action */}
         <Col xs={24} md={12} style={{ textAlign: "center", md: "left" }}>
           <Title level={1} style={{ fontWeight: "bold" }}>
             Discover StreamBox

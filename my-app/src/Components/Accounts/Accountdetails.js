@@ -15,16 +15,28 @@ function Accountdetails() {
   });
 
   useEffect(() => {
-    console.log("useeffect rendered");
+    console.log("useEffect rendered");
     const storedUserData = JSON.parse(localStorage.getItem("userData"));
 
     if (loginData && loginData.name && loginData.email) {
       localStorage.setItem("userData", JSON.stringify(loginData));
-      setUserData(loginData);
+      updateUserDataState(loginData);
     } else if (storedUserData) {
-      setUserData(storedUserData);
+      updateUserDataState(storedUserData);
     }
   }, [loginData]);
+
+  const updateUserDataState = useCallback((newUserData) => {
+    setUserData((prevUserData) => {
+      if (
+        prevUserData.name === newUserData.name &&
+        prevUserData.email === newUserData.email
+      ) {
+        return prevUserData;
+      }
+      return newUserData;
+    });
+  }, []);
 
   const logOutUserFromApp = useCallback(() => {
     logoutHandler();
@@ -70,7 +82,7 @@ function Accountdetails() {
       name: "Updated User",
       email: "updateduser@example.com",
     };
-    setUserData(newUserData);
+    updateUserDataState(newUserData);
 
     localStorage.setItem("userData", JSON.stringify(newUserData));
   }
@@ -80,7 +92,7 @@ function Accountdetails() {
       name: "Updated User2",
       email: "updateduser2@example.com",
     };
-    setUserData(newUserData);
+    updateUserDataState(newUserData);
     localStorage.setItem("userData", JSON.stringify(newUserData));
   }
 

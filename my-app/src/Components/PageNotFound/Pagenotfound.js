@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Typography, Image, Space, Layout } from "antd";
-import Footer from "../Footer/Footer"; // Assuming Footer remains unchanged
-import Header from "../Header/Header"; // Assuming Header remains unchanged
+import Footer from "../Footer/Footer";
+import Header from "../Header/Header";
 
 const { Title, Text } = Typography;
 const { Content } = Layout;
@@ -61,11 +61,10 @@ function Pagenotfound() {
             src="https://svgshare.com/i/hXD.svg"
             alt="404"
             preview={false}
-            style={{ maxWidth: "300px", marginTop: "24px" }} // Smaller Image
+            style={{ maxWidth: "300px", marginTop: "24px" }}
           />
           <Button type="primary" size="small" onClick={() => navigate("/")}>
             {" "}
-            {/* Smaller Button */}
             Go to Homepage
           </Button>
         </Space>

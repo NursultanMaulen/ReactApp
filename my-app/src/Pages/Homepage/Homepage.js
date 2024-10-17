@@ -20,7 +20,7 @@ function Homepage() {
             md={6}
             style={{ padding: "16px", display: { base: "none", md: "block" } }}
           >
-            <Sidebar /> {/* Sidebar only shown on medium and larger screens */}
+            <Sidebar />
           </Col>
 
           <Col xs={24} md={18}>
