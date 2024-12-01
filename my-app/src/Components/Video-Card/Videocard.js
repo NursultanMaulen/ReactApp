@@ -1,39 +1,23 @@
 import { Card, Avatar, Typography, Row, Col, Button } from "antd";
+import { useNavigate } from "react-router-dom"; // Для перехода
 import { HeartOutlined } from "@ant-design/icons";
-import { useMemo, useState } from "react";
-import { useLikeContext } from "../../Context/LikespageContext";
+import DeleteVideoButton from "../VideoButtons/DeleteVideoButton";
 
 const { Title } = Typography;
 
 function Videocard({ video, likeVideo }) {
-  const { _id, title, videoUrl, creator_pic } = video;
-  const { setLikesFn } = useLikeContext();
+  const { id, title, videoUrl, creator_pic } = video;
+  const navigate = useNavigate(); // Хук для навигации
 
-  const [videoTitle, setVideoTitle] = useState(title);
-
-  const memoizedVideo = useMemo(() => {
-    console.log("Memoized video data", videoTitle);
-    return { ...video, title: videoTitle };
-  }, [video, videoTitle]);
-
-  const handleLike = () => {
-    setLikesFn({ type: "ADD_TO_LIKES", payload: memoizedVideo });
+  const handleCardClick = () => {
+    navigate(`/video/${id}/edit`);
   };
-
-  const handleChangeTitle = () => {
-    setVideoTitle((prevTitle) =>
-      prevTitle === "New Video Title" ? "New Video Title" : "New Video Title"
-    );
-  };
-
-  console.log("Component rendered");
 
   return (
     <Card
       hoverable
       style={{
-        width: 240,
-        margin: "16px",
+        width: "100%",
         backgroundColor: "#1a202c",
         borderRadius: "8px",
         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
@@ -42,7 +26,7 @@ function Videocard({ video, likeVideo }) {
       <div style={{ position: "relative", paddingBottom: "56.25%", height: 0 }}>
         <iframe
           src={videoUrl}
-          title={videoTitle}
+          title={title}
           style={{
             position: "absolute",
             top: 0,
@@ -55,31 +39,38 @@ function Videocard({ video, likeVideo }) {
           allowFullScreen
         />
       </div>
-      <Row align="middle" style={{ marginTop: "8px" }}>
+      <Row
+        onClick={handleCardClick}
+        align="middle"
+        style={{ marginTop: "8px" }}
+      >
         <Col>
           <Avatar src={creator_pic} size={40} />
         </Col>
         <Col style={{ marginLeft: "8px" }}>
           <Title level={5} style={{ color: "white", margin: 0 }}>
-            {videoTitle}
+            {title}
           </Title>
         </Col>
       </Row>
+      <DeleteVideoButton
+        videoId={video.id}
+        onClick={(e) => {
+          {
+            e.stopPropagation();
+          }
+        }}
+      />
       <Button
         type="primary"
         icon={<HeartOutlined />}
         style={{ marginTop: "8px" }}
-        onClick={handleLike}
+        onClick={(e) => {
+          e.stopPropagation();
+          likeVideo(video);
+        }}
       >
         Like
-      </Button>
-
-      <Button
-        type="default"
-        style={{ marginTop: "8px" }}
-        onClick={handleChangeTitle}
-      >
-        Change Video Title
       </Button>
     </Card>
   );

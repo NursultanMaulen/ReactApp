@@ -9,6 +9,7 @@ import Homepage from "./Pages/Homepage/Homepage";
 import Likespage from "./Pages/Likespage/Likespage";
 import Loginpage from "./Pages/Loginpage/Loginpage";
 import Signuppage from "./Pages/Singuppage/Signuppage";
+import EditVideoPage from "./Pages/Videopage/Videopage";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/login" element={<Loginpage />} />
         <Route exact path="/signup" element={<Signuppage />} />
         <Route exact path="/accounts" element={<Accountpage />} />
+        <Route exact path="/video/:id/edit" element={<EditVideoPage />} />
         <Route exact path="*" element={<Pagenotfound />} />
       </Routes>
     </div>

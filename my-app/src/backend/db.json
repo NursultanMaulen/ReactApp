@@ -1,0 +1,53 @@
+{
+  "videos": [
+    {
+      "title": "HTML Full Course Complete All-in-One Tutorial",
+      "description": " New Technology that will blow your mind : In this video youtuber explains about some technologies that will really blow your mind and you can't believe it.",
+      "category": "HTML",
+      "videoUrl": "https://www.youtube.com/embed/mJgBOIoGihA",
+      "id": "1"
+    },
+    {
+      "title": "HTML Tutorial For Beginners In Hindi (With Notes)",
+      "description": "In this video youtuber explains about some technologies that will really blow your mind and you can't believe it.",
+      "category": "HTML",
+      "videoUrl": "https://www.youtube.com/embed/BsDoLVMnmZs",
+      "id": "2"
+    },
+    {
+      "id": "8427",
+      "title": "ADDED VIDEO",
+      "description": "Description of the new video",
+      "category": "Frontend Development",
+      "thumbnailUrl": "https://example.com/thumbnail.jpg",
+      "videoUrl": "https://www.youtube.com/embed/TBIjgBVFjVI",
+      "creator_pic": "https://yt3.googleusercontent.com/ytc/AIdro_mKzklyPPhghBJQH5H3HpZ108YcE618DBRLAvRUD1AjKNw=s160-c-k-c0x00ffffff-no-rj",
+      "creator_name": "FireShip"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Guest",
+      "email": "example@mail.com",
+      "password": "123123123"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "categoryName": "Computer Programming",
+      "description": "Computer programming is the process of designing and building an executable computer program to accomplish a specific computing"
+    },
+    {
+      "id": "2",
+      "categoryName": "Frontend Development",
+      "description": "Front-end web development, also known as client-side development is the practice of producing HTML, CSS and JavaScript for a website or Web Application"
+    },
+    {
+      "id": "3",
+      "categoryName": "Backend Development",
+      "description": "Backend Development is also known as server-side development. It is everything that the users don't see and contains behind-the-scenes activities that occur when performing any action on a website."
+    }
+  ]
+}

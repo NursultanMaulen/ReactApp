@@ -1,16 +1,21 @@
-import React from "react";
-import { useExplorePageContext } from "../../Context/ExplorepageContext"; // Adjust the import path
-import Videocard from "../../Components/Video-Card/Videocard"; // Adjust the import path
-import Sidebar from "../../Components/Sidebar/Sidebar"; // Adjust the import path
-import Header from "../../Components/Header/Header"; // Adjust the import path
-import Footer from "../../Components/Footer/Footer"; // Adjust the import path
+import React, { useEffect } from "react";
+import { useExplorePageContext } from "../../Context/ExplorepageContext";
+import Videocard from "../../Components/Video-Card/Videocard";
+import Sidebar from "../../Components/Sidebar/Sidebar";
+import Header from "../../Components/Header/Header";
+import Footer from "../../Components/Footer/Footer";
+import AddVideoButton from "../../Components/VideoButtons/AddVideoButton";
 import { Layout, Spin, Row, Col } from "antd";
 
 const { Content } = Layout;
 
 function ExplorePage() {
-  const { state, likeVideo } = useExplorePageContext();
+  const { state, fetchVideos, likeVideo } = useExplorePageContext();
   const { videosdata, isLoading } = state;
+
+  useEffect(() => {
+    fetchVideos();
+  }, []);
 
   if (isLoading) {
     return (
@@ -21,22 +26,32 @@ function ExplorePage() {
   }
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout style={{ minHeight: "100vh", overflow: "hidden" }}>
       <Sidebar />
       <Layout style={{ background: "#fff" }}>
-        {" "}
         <Header />
-        <Content style={{ padding: "24px" }}>
+        <div style={{ textAlign: "right" }}>
+          <AddVideoButton />
+        </div>
+        <Content
+          style={{
+            padding: "24px",
+            marginTop: "60px",
+            marginBottom: "80px",
+            marginLeft: "150px",
+            overflowY: "auto",
+          }}
+        >
           <Row gutter={[16, 16]} justify="center">
             {videosdata.map((video) => (
-              <Col key={video._id} xs={24} sm={12} md={8} lg={6}>
+              <Col key={video.id} xs={24} sm={12} md={8} lg={6}>
                 <Videocard video={video} likeVideo={likeVideo} />
               </Col>
             ))}
           </Row>
         </Content>
+        <Footer />
       </Layout>
-      <Footer />
     </Layout>
   );
 }

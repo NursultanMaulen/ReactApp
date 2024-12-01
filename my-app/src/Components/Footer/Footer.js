@@ -15,6 +15,7 @@ function CustomFooter() {
         bottom: 0,
         left: 0,
         right: 0,
+        zIndex: 1001,
       }}
     >
       <Row justify="space-between" align="middle">
