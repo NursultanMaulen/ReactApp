@@ -1,16 +1,25 @@
 import { Card, Avatar, Typography, Row, Col, Button } from "antd";
-import { useNavigate } from "react-router-dom"; // Для перехода
-import { HeartOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import DeleteVideoButton from "../VideoButtons/DeleteVideoButton";
+import { useLoginSignupContext } from "../../Context/IndexAllContext";
 
 const { Title } = Typography;
 
 function Videocard({ video, likeVideo }) {
   const { id, title, videoUrl, creator_pic } = video;
-  const navigate = useNavigate(); // Хук для навигации
+  const navigate = useNavigate();
+  const { state: authState } = useLoginSignupContext();
+  const { isAuthenticated } = authState;
+
+  const { likedVideos, handleLikeVideo } = useLoginSignupContext();
+
+  const isLiked = likedVideos.includes(id);
 
   const handleCardClick = () => {
-    navigate(`/video/${id}/edit`);
+    if (isAuthenticated) {
+      navigate(`/video/${id}/edit`);
+    }
   };
 
   return (
@@ -40,7 +49,7 @@ function Videocard({ video, likeVideo }) {
         />
       </div>
       <Row
-        onClick={handleCardClick}
+        onClick={isAuthenticated ? handleCardClick : null}
         align="middle"
         style={{ marginTop: "8px" }}
       >
@@ -56,21 +65,20 @@ function Videocard({ video, likeVideo }) {
       <DeleteVideoButton
         videoId={video.id}
         onClick={(e) => {
-          {
-            e.stopPropagation();
-          }
+          e.stopPropagation();
         }}
       />
       <Button
         type="primary"
-        icon={<HeartOutlined />}
-        style={{ marginTop: "8px" }}
+        icon={likedVideos.includes(id) ? <HeartFilled /> : <HeartOutlined />}
+        style={{ margin: "8px" }}
+        disabled={!isAuthenticated}
         onClick={(e) => {
           e.stopPropagation();
-          likeVideo(video);
+          handleLikeVideo(id);
         }}
       >
-        Like
+        {likedVideos.includes(id) ? "Liked" : "Like"}
       </Button>
     </Card>
   );

@@ -5,20 +5,24 @@ import {
   Sidebar,
   Signupinputs,
 } from "../../Components/IndexAllComponents";
+import { Layout } from "antd";
 
 function Signuppage() {
   return (
-    <div>
+    <Layout style={{ minHeight: "100vh", overflow: "hidden" }}>
       <Header />
-      <div
-        className="signup-page-sidebar"
-        style={{ display: "flex", marginLeft: "10rem" }}
+      <Layout
+        style={{
+          backgroundColor: "#fff",
+          height: "100%",
+          marginBottom: "100px",
+        }}
       >
         <Sidebar />
         <Signupinputs />
-      </div>
-      <Footer />
-    </div>
+        <Footer />
+      </Layout>
+    </Layout>
   );
 }
 

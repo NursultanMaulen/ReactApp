@@ -11,35 +11,13 @@ const { Content } = Layout;
 
 function Homepage() {
   return (
-    <Layout style={{ minHeight: "100vh", height: "100%" }}>
+    <Layout style={{ minHeight: "100vh", overflow: "hidden" }}>
       <Header />
-      <Layout style={{ background: "#fff" }}>
-        <Row style={{ height: "100%" }}>
-          <Col
-            xs={24}
-            md={6}
-            style={{ padding: "16px", display: { base: "none", md: "block" } }}
-          >
-            <Sidebar />
-          </Col>
-
-          <Col xs={24} md={18}>
-            <Content
-              style={{
-                padding: "24px",
-                background: "#fff",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                minHeight: "10vh",
-              }}
-            >
-              <Hero />
-            </Content>
-          </Col>
-        </Row>
+      <Layout>
+        <Sidebar />
+        <Hero />
+        <Footer />
       </Layout>
-      <Footer />
     </Layout>
   );
 }

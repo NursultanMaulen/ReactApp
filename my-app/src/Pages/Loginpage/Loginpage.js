@@ -5,20 +5,18 @@ import {
   Logininputs,
   Sidebar,
 } from "../../Components/IndexAllComponents";
+import { Layout } from "antd";
 
 function Loginpage() {
   return (
-    <div>
+    <Layout style={{ minHeight: "100vh", overflow: "hidden" }}>
       <Header />
-      <div
-        className="login-page-sidebar"
-        style={{ display: "flex", marginLeft: "10rem" }}
-      >
+      <Layout>
         <Sidebar />
         <Logininputs />
-      </div>
-      <Footer />
-    </div>
+        <Footer />
+      </Layout>
+    </Layout>
   );
 }
 

@@ -15,22 +15,22 @@
       "id": "2"
     },
     {
-      "id": "8427",
-      "title": "ADDED VIDEO",
+      "title": "ADDED VIDEO 111",
       "description": "Description of the new video",
       "category": "Frontend Development",
-      "thumbnailUrl": "https://example.com/thumbnail.jpg",
       "videoUrl": "https://www.youtube.com/embed/TBIjgBVFjVI",
-      "creator_pic": "https://yt3.googleusercontent.com/ytc/AIdro_mKzklyPPhghBJQH5H3HpZ108YcE618DBRLAvRUD1AjKNw=s160-c-k-c0x00ffffff-no-rj",
-      "creator_name": "FireShip"
+      "id": "8427"
     }
   ],
   "users": [
     {
       "id": "1",
-      "name": "Guest",
-      "email": "example@mail.com",
-      "password": "123123123"
+      "name": "Guest12",
+      "email": "example1@mail.com",
+      "password": "1231231231",
+      "likedVideos": [
+        "84b9"
+      ]
     }
   ],
   "categories": [

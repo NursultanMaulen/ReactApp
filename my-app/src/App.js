@@ -28,8 +28,24 @@ function App() {
         />
         <Route exact path="/login" element={<Loginpage />} />
         <Route exact path="/signup" element={<Signuppage />} />
-        <Route exact path="/accounts" element={<Accountpage />} />
-        <Route exact path="/video/:id/edit" element={<EditVideoPage />} />
+        <Route
+          exact
+          path="/accounts"
+          element={
+            <Authentication>
+              <Accountpage />
+            </Authentication>
+          }
+        />
+        <Route
+          exact
+          path="/video/:id/edit"
+          element={
+            <Authentication>
+              <EditVideoPage />
+            </Authentication>
+          }
+        />
         <Route exact path="*" element={<Pagenotfound />} />
       </Routes>
     </div>

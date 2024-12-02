@@ -9,16 +9,15 @@ function Sidebar() {
     <Sider
       width={150}
       style={{
-        height: "calc(100vh - 60px)", // Высота экрана минус Header
-        position: "fixed",
-        top: 60, // Учитываем Header
+        position: "relative",
         left: 0,
         background: "#fff",
-        boxShadow: "2px 0 8px rgba(0, 0, 0, 0.1)", // Добавим тень для визуального разделения
-        zIndex: 1000, // Убедимся, что Sidebar выше других элементов
+        boxShadow: "2px 0 8px rgba(0, 0, 0, 0.1)",
+        zIndex: 1000,
+        overflow: "auto",
       }}
     >
-      <Menu mode="inline" style={{ height: "100%" }}>
+      <Menu mode="inline" style={{ height: "100%", paddingBottom: "100px" }}>
         <Menu.Item key="1" icon={<HomeOutlined />}>
           <Link to="/">Home</Link>
         </Menu.Item>

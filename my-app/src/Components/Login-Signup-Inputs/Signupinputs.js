@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Form, Input, Typography, message } from "antd";
 import { useNavigate, Link } from "react-router-dom";
 import { useLoginSignupContext } from "../../Context/IndexAllContext";
+import { signUpHandler } from "../../services/LoginSignUpServices";
 
 const { Title, Text } = Typography;
 
@@ -21,9 +22,21 @@ function SignupInputs() {
     }
   }, [name, email, password]);
 
-  function submitSignUpData(values) {
-    message.success("Signup successful!");
-    navigate("/login");
+  async function submitSignUpData(values) {
+    const userData = {
+      name: values.name,
+      email: values.email,
+      password: values.password,
+    };
+
+    try {
+      await signUpHandler(userData);
+      message.success("Signup successful!");
+      navigate("/login");
+    } catch (error) {
+      console.error("Signup failed:", error);
+      setError("Failed to sign up. Please try again.");
+    }
   }
 
   return (

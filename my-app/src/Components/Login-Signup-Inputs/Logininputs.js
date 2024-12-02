@@ -3,7 +3,6 @@ import { Button, Input, Form, Typography, Layout, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginSignupContext } from "../../Context/IndexAllContext";
 import { loginHandler } from "../../services/LoginSignUpServices";
-import withLogging from "../../HOCs/withLogging";
 
 const { Title, Text } = Typography;
 const { Content } = Layout;
@@ -26,14 +25,20 @@ function LoginInputs() {
   }, [dispatch]);
 
   const submitLoginData = useCallback(
-    (e) => {
-      loginHandler(email, password, dispatch);
-      if (localStorage.getItem("token")) {
-        localStorage.setItem("email", email);
-        localStorage.setItem("password", password);
-        navigate("/explore");
-      } else {
-        setError("Invalid email or password");
+    async (e) => {
+      try {
+        await loginHandler(email, password, dispatch);
+        const token = localStorage.getItem("token");
+        if (token) {
+          localStorage.setItem("email", email);
+          localStorage.setItem("password", password);
+          navigate("/explore");
+        } else {
+          setError("Invalid email or password");
+        }
+      } catch (error) {
+        console.error("Login failed:", error);
+        setError("Failed to login. Please try again.");
       }
     },
     [email, password, dispatch, navigate]
@@ -49,22 +54,31 @@ function LoginInputs() {
     }
   }, [email, password]);
 
-  const setGuestLoginData = useCallback(() => {
-    const guestEmail = "example@mail.com";
-    const guestPassword = "123123123";
+  const setGuestLoginData = useCallback(async () => {
+    try {
+      const response = await fetch("http://localhost:3001/users/1");
+      console.log("Data fetched!!");
+      if (!response.ok) {
+        throw new Error("Failed to fetch guest data");
+      }
+      const guestUser = await response.json();
 
-    form.setFieldsValue({
-      email: guestEmail,
-      password: guestPassword,
-    });
+      form.setFieldsValue({
+        email: guestUser.email,
+        password: guestUser.password,
+      });
 
-    dispatch({ type: "EMAIL", payload: guestEmail });
-    dispatch({ type: "PASSWORD", payload: guestPassword });
+      dispatch({ type: "EMAIL", payload: guestUser.email });
+      dispatch({ type: "PASSWORD", payload: guestUser.password });
 
-    localStorage.setItem("email", guestEmail);
-    localStorage.setItem("password", guestPassword);
+      localStorage.setItem("email", guestUser.email);
+      localStorage.setItem("password", guestUser.password);
 
-    message.info("Guest Login Activated");
+      message.info("Guest Login Activated");
+    } catch (error) {
+      console.error("Failed to fetch guest data:", error);
+      message.error("Failed to activate guest login. Please try again.");
+    }
   }, [form, dispatch]);
 
   return (
@@ -156,4 +170,4 @@ function LoginInputs() {
   );
 }
 
-export default withLogging(LoginInputs);
+export default LoginInputs;

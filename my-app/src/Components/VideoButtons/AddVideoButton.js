@@ -1,8 +1,11 @@
 import { useExplorePageContext } from "../../Context/ExplorepageContext";
 import { Button } from "antd";
+import { useLoginSignupContext } from "../../Context/LoginSignupContext";
 
 function AddVideoButton() {
   const { createVideo } = useExplorePageContext();
+  const { state: authState } = useLoginSignupContext();
+  const { isAuthenticated } = authState;
 
   const handleAddVideo = () => {
     const newVideo = {
@@ -19,7 +22,11 @@ function AddVideoButton() {
     createVideo(newVideo);
   };
 
-  return <Button onClick={handleAddVideo}>Add Video</Button>;
+  return (
+    <Button disabled={!isAuthenticated} onClick={handleAddVideo}>
+      Add Video
+    </Button>
+  );
 }
 
 export default AddVideoButton;
