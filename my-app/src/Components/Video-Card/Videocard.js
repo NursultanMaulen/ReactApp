@@ -6,15 +6,12 @@ import { useLoginSignupContext } from "../../Context/IndexAllContext";
 
 const { Title } = Typography;
 
-function Videocard({ video, likeVideo }) {
+function Videocard({ video }) {
   const { id, title, videoUrl, creator_pic } = video;
   const navigate = useNavigate();
-  const { state: authState } = useLoginSignupContext();
-  const { isAuthenticated } = authState;
 
-  const { likedVideos, handleLikeVideo } = useLoginSignupContext();
-
-  const isLiked = likedVideos.includes(id);
+  const { state, handleLikeVideo } = useLoginSignupContext();
+  const { likedVideos, isAuthenticated } = state;
 
   const handleCardClick = () => {
     if (isAuthenticated) {

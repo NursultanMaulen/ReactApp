@@ -27,6 +27,7 @@ function SignupInputs() {
       name: values.name,
       email: values.email,
       password: values.password,
+      likedVideos: [],
     };
 
     try {

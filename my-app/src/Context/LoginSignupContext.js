@@ -28,7 +28,12 @@ function LoginSignupContext({ children }) {
       case "PASSWORD":
         return { ...state, password: action.payload };
       case "LOGINDATA":
-        return { ...state, loginData: action.payload, isAuthenticated: true };
+        return {
+          ...state,
+          loginData: action.payload,
+          likedVideos: action.payload.likedVideos || [],
+          isAuthenticated: true,
+        };
       case "LOGOUT":
         return {
           ...state,
@@ -49,7 +54,11 @@ function LoginSignupContext({ children }) {
           ...state,
           likedVideos: state.likedVideos.filter((id) => id !== action.payload),
         };
-
+      case "UPDATE_LIKED_VIDEOS":
+        return {
+          ...state,
+          likedVideos: action.payload,
+        };
       default:
         return state;
     }

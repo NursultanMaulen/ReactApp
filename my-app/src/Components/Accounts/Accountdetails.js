@@ -8,18 +8,32 @@ const { Title } = Typography;
 
 function Accountdetails() {
   const { loginData, dispatch } = useLoginSignupContext();
-
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
     id: "",
     name: "",
     email: "",
     password: "",
+    likedVideos: [],
   });
   const [form] = Form.useForm();
 
+  const fetchUserData = async (userId) => {
+    try {
+      const response = await fetch(`http://localhost:3001/users/${userId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch user data");
+      }
+
+      const data = await response.json();
+      setUserData(data);
+      localStorage.setItem("userData", JSON.stringify(data));
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
   useEffect(() => {
-    console.log("useEffect rendered");
     const storedUserData = JSON.parse(localStorage.getItem("userData"));
 
     if (loginData && loginData.name && loginData.email) {
@@ -36,7 +50,8 @@ function Accountdetails() {
         if (
           prevUserData.name === newUserData.name &&
           prevUserData.email === newUserData.email &&
-          prevUserData.password === newUserData.password
+          prevUserData.password === newUserData.password &&
+          prevUserData.likedVideos === newUserData.likedVideos
         ) {
           return prevUserData;
         }
@@ -54,7 +69,6 @@ function Accountdetails() {
   }, [navigate]);
 
   const dataSource = useMemo(() => {
-    console.log("useMemo called");
     return [
       {
         key: "1",
@@ -88,7 +102,7 @@ function Accountdetails() {
 
   const updateUserData = async (values) => {
     const updatedUserData = {
-      id: userData.id,
+      ...userData,
       name: values.name,
       email: values.email,
       password: values.password,
@@ -98,7 +112,7 @@ function Accountdetails() {
       const response = await fetch(
         `http://localhost:3001/users/${userData.id}`,
         {
-          method: "PUT",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
@@ -110,12 +124,32 @@ function Accountdetails() {
         throw new Error("Failed to update user");
       }
 
-      updateUserDataState(updatedUserData);
-      localStorage.setItem("userData", JSON.stringify(updatedUserData));
+      await fetchUserData(userData.id);
       message.success("User data updated successfully!");
     } catch (error) {
       console.error("Error updating user data:", error);
       message.error("Failed to update user data. Please try again.");
+    }
+  };
+
+  const deleteAccount = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/users/${userData.id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete user");
+      }
+
+      logOutUserFromApp();
+      message.success("Account deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      message.error("Failed to delete account. Please try again.");
     }
   };
 
@@ -161,6 +195,15 @@ function Accountdetails() {
           Update User Data
         </Button>
       </Form>
+
+      <Button
+        type="primary"
+        danger
+        style={{ marginTop: "16px" }}
+        onClick={deleteAccount}
+      >
+        Delete Account
+      </Button>
     </Card>
   );
 }

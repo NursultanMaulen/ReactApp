@@ -10,6 +10,7 @@ import Likespage from "./Pages/Likespage/Likespage";
 import Loginpage from "./Pages/Loginpage/Loginpage";
 import Signuppage from "./Pages/Singuppage/Signuppage";
 import EditVideoPage from "./Pages/Videopage/Videopage";
+import SearchResultsPage from "./Pages/SearchResultspage/SearchResultspage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             </Authentication>
           }
         />
+        <Route exact path="/search" element={<SearchResultsPage />} />
         <Route exact path="/login" element={<Loginpage />} />
         <Route exact path="/signup" element={<Signuppage />} />
         <Route

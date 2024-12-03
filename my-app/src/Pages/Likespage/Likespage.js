@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Layout, Typography, Card, Row, Col, Spin } from "antd";
 import { Footer, Header, Sidebar } from "../../Components/IndexAllComponents";
 import { useLoginSignupContext } from "../../Context/LoginSignupContext";
+import Videocard from "../../Components/Video-Card/Videocard";
+import { useExplorePageContext } from "../../Context/ExplorepageContext";
 
 const { Content } = Layout;
 const { Title } = Typography;
 
 function LikesPage() {
   const { loginData, isAuthenticated } = useLoginSignupContext();
+  const { state, fetchVideos, likeVideo } = useExplorePageContext();
   const [videos, setVideos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -66,10 +69,10 @@ function LikesPage() {
         <Sidebar />
         <Content
           style={{
-            padding: "24px",
-            marginTop: "60px",
-            marginBottom: "80px",
-            marginLeft: "150px",
+            // padding: "24px",
+            // marginTop: "60px",
+            // marginBottom: "80px",
+            // marginLeft: "150px",
             backgroundColor: "#fff",
           }}
         >
@@ -84,25 +87,7 @@ function LikesPage() {
           <Row gutter={[16, 16]} justify="center">
             {videos.map((video) => (
               <Col key={video.id} xs={24} sm={12} md={8} lg={6}>
-                <Card
-                  title={video.title}
-                  hoverable
-                  style={{
-                    width: "100%",
-                    borderRadius: "8px",
-                    overflow: "hidden",
-                  }}
-                >
-                  <iframe
-                    width="100%"
-                    height="200"
-                    src={video.videoUrl}
-                    frameBorder="0"
-                    allowFullScreen
-                    title={video.title}
-                    style={{ borderRadius: "8px 8px 0 0" }}
-                  ></iframe>
-                </Card>
+                <Videocard video={video} likeVideo={likeVideo} />
               </Col>
             ))}
           </Row>

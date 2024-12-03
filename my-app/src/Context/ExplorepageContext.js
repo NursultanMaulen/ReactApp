@@ -4,6 +4,8 @@ import {
   useEffect,
   useReducer,
   useState,
+  useCallback,
+  useMemo,
 } from "react";
 
 const explorePage = createContext();
@@ -42,7 +44,7 @@ function ExplorepageContext({ children }) {
 
   const { videosdata } = state;
 
-  const fetchVideos = async () => {
+  const fetchVideos = useCallback(async () => {
     dispatch({ type: "LOADINGSPINNER", payload: true });
     try {
       const response = await fetch("http://localhost:3001/videos");
@@ -56,59 +58,78 @@ function ExplorepageContext({ children }) {
     } finally {
       dispatch({ type: "LOADINGSPINNER", payload: false });
     }
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     fetchVideos();
-  }, []);
+  }, [fetchVideos]);
 
-  const createVideo = async (newVideo) => {
-    try {
-      const response = await fetch("http://localhost:3001/videos", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newVideo),
-      });
-      if (!response.ok) throw new Error("Failed to create video");
+  const createVideo = useCallback(
+    async (newVideo) => {
+      try {
+        const response = await fetch("http://localhost:3001/videos", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newVideo),
+        });
+        if (!response.ok) throw new Error("Failed to create video");
 
-      const addedVideo = await response.json();
-      dispatch({ type: "APIVIDEOSDATA", payload: [...videosdata, addedVideo] });
-    } catch (error) {
-      console.error("Error creating video:", error);
-    }
-  };
+        const addedVideo = await response.json();
+        dispatch({
+          type: "APIVIDEOSDATA",
+          payload: [...videosdata, addedVideo],
+        });
+      } catch (error) {
+        console.error("Error creating video:", error);
+      }
+    },
+    [videosdata, dispatch]
+  );
 
-  const updateVideo = async (id, updatedVideo) => {
-    try {
-      const response = await fetch(`http://localhost:3001/videos/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedVideo),
-      });
-      if (!response.ok) throw new Error("Failed to update video");
+  const updateVideo = useCallback(
+    async (id, updatedVideo) => {
+      try {
+        const response = await fetch(`http://localhost:3001/videos/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedVideo),
+        });
+        if (!response.ok) throw new Error("Failed to update video");
 
-      const updatedData = await response.json();
-      dispatch({
-        type: "APIVIDEOSDATA",
-        payload: videosdata.map((video) =>
-          video._id === id ? updatedData : video
-        ),
-      });
-    } catch (error) {
-      console.error("Error updating video:", error);
-    }
-  };
+        const updatedData = await response.json();
+        dispatch({
+          type: "APIVIDEOSDATA",
+          payload: videosdata.map((video) =>
+            video.id === id ? updatedData : video
+          ),
+        });
+      } catch (error) {
+        console.error("Error updating video:", error);
+      }
+    },
+    [videosdata, dispatch]
+  );
 
-  const deleteVideo = async (videoId) => {
-    try {
-      await fetch(`http://localhost:3001/videos/${videoId}`, {
-        method: "DELETE",
-      });
-      dispatch({ type: "DELETE_VIDEO", payload: videoId });
-    } catch (error) {
-      console.error("Error deleting video:", error);
-    }
-  };
+  const deleteVideo = useCallback(
+    async (videoId) => {
+      try {
+        await fetch(`http://localhost:3001/videos/${videoId}`, {
+          method: "DELETE",
+        });
+        dispatch({ type: "DELETE_VIDEO", payload: videoId });
+      } catch (error) {
+        console.error("Error deleting video:", error);
+      }
+    },
+    [dispatch]
+  );
+
+  const memoizedVideos = useMemo(() => {
+    console.log("memo triggered");
+    return videosdata.filter(
+      (video) => video.category === "All" || video.category === state.category
+    );
+  }, [videosdata, state.category]);
 
   return (
     <explorePage.Provider
@@ -117,7 +138,7 @@ function ExplorepageContext({ children }) {
         dispatch,
         isActive,
         setActive,
-        videosdata,
+        videosdata: memoizedVideos,
         likedVideos,
         setLikedVideos,
         createVideo,

@@ -1,4 +1,3 @@
-// LikespageContext.js
 import { createContext, useContext, useReducer } from "../Utils/CustomUtils";
 
 const likeContext = createContext();

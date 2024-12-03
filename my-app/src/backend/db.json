@@ -1,7 +1,7 @@
 {
   "videos": [
     {
-      "title": "HTML Full Course Complete All-in-One Tutorial",
+      "title": "HTML  111 1Full Course Complete All-in-One Tutorial",
       "description": " New Technology that will blow your mind : In this video youtuber explains about some technologies that will really blow your mind and you can't believe it.",
       "category": "HTML",
       "videoUrl": "https://www.youtube.com/embed/mJgBOIoGihA",
@@ -15,7 +15,7 @@
       "id": "2"
     },
     {
-      "title": "ADDED VIDEO 111",
+      "title": "ADDED VIDEO",
       "description": "Description of the new video",
       "category": "Frontend Development",
       "videoUrl": "https://www.youtube.com/embed/TBIjgBVFjVI",
@@ -25,11 +25,21 @@
   "users": [
     {
       "id": "1",
-      "name": "Guest12",
+      "name": "Guest1111",
       "email": "example1@mail.com",
-      "password": "1231231231",
+      "password": "12312312311",
       "likedVideos": [
-        "84b9"
+        "2",
+        "1"
+      ]
+    },
+    {
+      "id": "609d",
+      "name": "Nurs1",
+      "email": "nurs@example.com",
+      "password": "nursultan123",
+      "likedVideos": [
+        "1"
       ]
     }
   ],

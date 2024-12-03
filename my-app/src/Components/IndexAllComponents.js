@@ -7,7 +7,6 @@ import Logininputs from "./Login-Signup-Inputs/Logininputs";
 import Signupinputs from "./Login-Signup-Inputs/Signupinputs";
 import Pagenotfound from "./PageNotFound/Pagenotfound";
 import Sidebar from "./Sidebar/Sidebar";
-import Uploadvideos from "./UploadVideos/Uploadvideos";
 import Videocard from "./Video-Card/Videocard";
 export {
   Authentication,
@@ -19,6 +18,5 @@ export {
   Signupinputs,
   Pagenotfound,
   Sidebar,
-  Uploadvideos,
   Videocard,
 };
